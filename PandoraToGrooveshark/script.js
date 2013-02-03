@@ -42,6 +42,10 @@ image.onclick=function(){
 	console.log("lololol");
 };
 
+$(document).ready(function(){
+	console.log("DOC READY");
+});
+
 //mouseover effects
 image.onmouseover = function(){
 	image.src=chrome.extension.getURL('btn_skip_hover.png');
@@ -132,6 +136,24 @@ function clearMessage(){
             hiddenField.setAttribute("type", "hidden");
             hiddenField.setAttribute("name", key);
             hiddenField.setAttribute("value", params[key]);
+=======
+function authenticate(sig) {
+    $.ajax
+    ({
+        type: "POST",
+        //the url where you want to sent the userName and password to
+        url: 'https://api.grooveshark.com/ws3.php?sig='+sig,
+        dataType: 'json',
+        async: false,
+        //json object to sent to the authentication url
+        data: {"method":"getSongSearchResults","header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":50,"offset":""}},
+        success: function () {
+
+        alert("Thanks!"); 
+        }
+    })
+}
+
 
             form.appendChild(hiddenField);
          }
@@ -189,8 +211,11 @@ function addSong(){
 	message["method"] = "startSession";
 	console.log("method="+message["method"]);
 
+
 	sig = CryptoJS.HmacMD5('{"method":"getSongSearchResults","header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":"2","offset":""}}',"399dec7ab7ff40d5be476253130ad75e");
 	//sig = CryptoJS.HmacMD5("{'method':'addUserFavoriteSong','parameters':{'songID':30547543},'header':{'wsKey':'key','sessionID':'df8fec35811a6b240808563d9f72fa2'}}", "secret");
+
+	//sig = CryptoJS.HmacMD5("{"method":"getSongSearchResults","header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":50,"offset":""}}", "399dec7ab7ff40d5be476253130ad75e");
 	//sig = CryptoJS.HmacMD5(message, secret);
 	console.log("hash complete! sig="+sig);
 	var search = postURL(sig);
