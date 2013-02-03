@@ -90,7 +90,7 @@ function clearMessage(){
 }
 
 // Submit POST request to Grooveshark API using sig.
-function postURL(sig) {
+/*function postURL(sig) {
 	console.log("starting post...");
 	var path = "https://api.grooveshark.com/ws3.php?sig=";
 	path = path+sig;
@@ -109,9 +109,46 @@ function postURL(sig) {
     console.dir(request);
    	console.log("finished post!");
 
+}*/
+
+
+/*function postURL(sig) {
+	var method = "post";
+    method = method || "post"; // Set method to post by default, if not specified.
+    var path = "https://api.grooveshark.com/ws3.php?sig="+sig;
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    form.setAttribute("target", "_blank");
+
+    //var params = {"method":"addUserFavoriteSong", "parameters":{"songID":30547543},"header":{"wsKey":"key","sessionID":"df8fec35811a6b240808563d9f72fa2"}};
+    var params = {"method":"getSongSearchResults","header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":"2","offset":""}};
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
+         }
+    }
+
+	form.appendChild(hiddenField);
+
+    document.body.appendChild(form);
+    form.submit();
+}*/
+function postURL(sig, message) {
+	var url = "https://api.grooveshark.com/ws3.php?sig="+sig;
+	$.post(url, message);
+	.done(function(data) {
+  		alert("Data Loaded: " + data);
+	});
 }
-
-
 /*
 CryptoJS v3.1.2
 code.google.com/p/crypto-js
@@ -152,11 +189,14 @@ function addSong(){
 	message["method"] = "startSession";
 	console.log("method="+message["method"]);
 
-	sig = CryptoJS.HmacMD5("{'method':'addUserFavoriteSong','parameters':{'songID':30547543},'header':{'wsKey':'key','sessionID':'df8fec35811a6b240808563d9f72fa2'}}", "secret");
+	sig = CryptoJS.HmacMD5('{"method":"getSongSearchResults","header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":"2","offset":""}}',"399dec7ab7ff40d5be476253130ad75e");
+	//sig = CryptoJS.HmacMD5("{'method':'addUserFavoriteSong','parameters':{'songID':30547543},'header':{'wsKey':'key','sessionID':'df8fec35811a6b240808563d9f72fa2'}}", "secret");
 	//sig = CryptoJS.HmacMD5(message, secret);
 	console.log("hash complete! sig="+sig);
-	postURL(sig);
+	var search = postURL(sig);
+	console.log("search="+search);
 	clearMessage();
+
 
 	// Authenticate (login) user.
 	// TODO: Do this only once at the setup of extension? or upon clicking on button
