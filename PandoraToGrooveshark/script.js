@@ -94,7 +94,7 @@ function clearMessage(){
 }
 
 // Submit POST request to Grooveshark API using sig.
-function postURL(sig) {
+/*function postURL(sig) {
 	console.log("starting post...");
 	var path = "https://api.grooveshark.com/ws3.php?sig=";
 	path = path+sig;
@@ -113,10 +113,77 @@ function postURL(sig) {
     console.dir(request);
    	console.log("finished post!");
 
-}
+}*/
 
+
+function postURL(sig) {
+	var method = "post";
+    method = method || "post"; // Set method to post by default, if not specified.
+    var path = "http://api.grooveshark.com/ws/3.0/?sig=8c2485fcc0516ed410332443ca27ad18" //https://api.grooveshark.com/ws3.php?sig="+sig;
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    form.setAttribute("target", "_blank");
+
+    //var params = {"method":"addUserFavoriteSong", "parameters":{"songID":30547543},"header":{"wsKey":"key","sessionID":"df8fec35811a6b240808563d9f72fa2"}};
+    //var params = {"method":"getSongSearchResults","header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":"2","offset":""}};
+    var params = {"method":"getSongsInfo","header":{"wsKey":"timyangmit"},"parameters":{"songIDs":"200"}};
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+
+            form.appendChild(hiddenField);
+         }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
 function authenticate(sig) {
 	//console.log('http://api.grooveshark.com/ws/3.0/?sig='+sig);
+
+	//var gs_data = JSON.parse('{"method":"getSongSearchResults", "header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":"2","offset":""}}');
+	var gs_data = JSON.parse('{"method":"getSongsInfo","header":{"wsKey":"timyangmit"},"parameters":{"songIDs":"200"}}');
+	var req = new XMLHttpRequest();
+	req.open('POST', 'http://api.grooveshark.com/ws/3.0/?sig=42650e01978f793d5fe915576791df8a', false);
+	returnq.send(gs_data);
+	alert(req.responseText());*//*
+	console.dir(gs_data);
+    $.ajax
+    ({
+        url: 'http://api.grooveshark.com/ws/3.0/?sig=8c2485fcc0516ed410332443ca27ad18',
+        type: "POST",
+        //the url where you want to sent the userName and password to
+        contentType: "application/json",
+        data: JSON.stringify(gs_data),
+        dataType: 'script',
+        crossDomain: true,
+        //async: false,
+        
+        success: function (data) {
+			console.dir(data);	
+        	alert(data); 
+        }
+    });
+
+}
+/*
+function postURL(sig, message) {
+	var url = "https://api.grooveshark.com/ws3.php?sig="+sig;
+	$.post(url, message)
+	.done(function(data) {
+
+  		alert("Data Loaded: " + data);
+	});
+}*/
+
    $.ajax
     ({
         type: "GET",
@@ -176,11 +243,15 @@ function addSong(){
 	message["method"] = "startSession";
 	console.log("method="+message["method"]);
 
+
+	message = {"method":"getSongSearchResults","header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":"2","offset":""}};
 	sig = CryptoJS.HmacMD5('{"method":"getSongSearchResults","header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":50,"offset":""}}', "399dec7ab7ff40d5be476253130ad75e");
 	//sig = CryptoJS.HmacMD5(message, secret);
 	console.log("hash complete! sig="+sig);
 	authenticate(sig);
+	//postURL(sig);
 	clearMessage();
+
 
 	// Authenticate (login) user.
 	// TODO: Do this only once at the setup of extension? or upon clicking on button
@@ -229,6 +300,12 @@ function addSong(){
 	postURL(sig);
 	clearMessage();
 
+}
+
+function addSongJS(){
+
+
+	
 }
 
 function undoAddSong(){
