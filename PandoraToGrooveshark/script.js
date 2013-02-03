@@ -40,7 +40,7 @@ image.onmouseout = function(){
 image.onmousedown = function(){
 	image.src=chrome.extension.getURL('btn_skip_press.png');
 };
-image.setAttribute("style", "margin: 6px 3px 0 3px; float:left;");
+image.setAttribute("style", "margin: 6px 3px 0 3px; float:left; cursor:pointer;");
 
 //find div to append grooveshark button to
 var playbackControl=document.getElementById("playbackControl");
