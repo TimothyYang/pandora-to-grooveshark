@@ -148,6 +148,7 @@ function postURL(sig) {
 }
 function authenticate(sig) {
 	//console.log('http://api.grooveshark.com/ws/3.0/?sig='+sig);
+
 	//var gs_data = JSON.parse('{"method":"getSongSearchResults", "header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":"2","offset":""}}');
 	var gs_data = JSON.parse('{"method":"getSongsInfo","header":{"wsKey":"timyangmit"},"parameters":{"songIDs":"200"}}');
 	var req = new XMLHttpRequest();
@@ -182,6 +183,26 @@ function postURL(sig, message) {
   		alert("Data Loaded: " + data);
 	});
 }*/
+
+   $.ajax
+    ({
+        type: "GET",
+        //the url where you want to sent the userName and password to
+        url: 'http://api.grooveshark.com/ws/3.0/?sig=8c2485fcc0516ed410332443ca27ad18',
+        data: '{"method":"getSongsInfo","header":{"wsKey":"timyangmit"},"parameters":{"songIDs":"200"}}',
+        dataType: 'jsonp',
+        crossDomain: true,
+        async: true,
+        //json object to sent to the authentication url
+        success: function () {
+        alert("Thanks!"); 
+        }
+    });
+
+}
+
+
+
 /*
 CryptoJS v3.1.2
 code.google.com/p/crypto-js

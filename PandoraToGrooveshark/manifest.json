@@ -13,5 +13,8 @@
         "run_at": "document_end"
     }],
     "web_accessible_resources": [
-    "btn_skip.png", "btn_skip_hover.png", "btn_skip_press.png"]
+    "btn_skip.png", "btn_skip_hover.png", "btn_skip_press.png"],
+    "permissions": [
+    "tabs"
+    ]
 }
