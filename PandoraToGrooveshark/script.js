@@ -21,22 +21,28 @@ var message = {
 };
 message["header"]["wsKey"] = key;
 
-
-var gsButton=document.createElement("div");
-var textnode=document.createTextNode("TESTING");
-gsButton.appendChild(textnode);
-gsButton.setAttribute("style", "margin: 6px 3px 0 3px; float:left;");
-gsButton.onclick=function(){
+//create new grooveshark control button
+var image = document.createElement("img");
+image.src=chrome.extension.getURL('btn_skip.png');
+image.onclick=function(){
 	console.log("did something");
 	addSong();
 	console.log("lololol");
 };
-var imgurl = chrome.extension.getURL('btn_skip.png');
-console.log(imgurl);
-//gsButton.style.setAttribute("background", imgurl);
-var image = document.createElement("img");
-image.src=imgurl;
 
+//mouseover effects
+image.onmouseover = function(){
+	image.src=chrome.extension.getURL('btn_skip_hover.png');
+};
+image.onmouseout = function(){
+	image.src=chrome.extension.getURL('btn_skip.png');
+};
+image.onmousedown = function(){
+	image.src=chrome.extension.getURL('btn_skip_press.png');
+};
+image.setAttribute("style", "margin: 6px 3px 0 3px; float:left;");
+
+//find div to append grooveshark button to
 var playbackControl=document.getElementById("playbackControl");
 var buttondiv = null;
 for (var i = 0; i < playbackControl.childNodes.length; i++) {
@@ -45,10 +51,21 @@ for (var i = 0; i < playbackControl.childNodes.length; i++) {
       break;
     }        
 }
+
+//confirmation div
+var confirm = document.createElement("div");
+var html = "<h2>Song Title</h2><p>Song Artist</p><p>Song Album</p>"
+confirm.innerHTML = html;
+//confirm.appendChild(artistp);
+confirm.setAttribute("style", "z-index:10000000; position:absolute; right:0px; bottom:0px; width:300px; height:50px; background:rgba(0,0,0,0.5); margin:40px; padding:10px; -moz-border-radius: 5px; border-radius: 6px;");
+document.body.appendChild(confirm);
+
+//append grooveshark button to playback controls
 if(buttondiv!=null){
-buttondiv.appendChild(gsButton);
-buttondiv.appendChild(image);
+buttondiv.style.width="300px";
+buttondiv.insertBefore(image, buttondiv.firstChild);
 }
+
 
 // Clear the message JSON variable.
 function clearMessage(){
