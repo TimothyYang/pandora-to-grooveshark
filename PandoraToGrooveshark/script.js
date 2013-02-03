@@ -8,7 +8,16 @@ var gsButton=document.createElement("div");
 var textnode=document.createTextNode("TESTING");
 gsButton.appendChild(textnode);
 gsButton.setAttribute("style", "margin: 6px 3px 0 3px; float:left;");
-gsButton.onclick=function(){console.log("did something")};
+gsButton.onclick=function(){
+	console.log("did something");
+	addSong();
+	console.log("lololol");
+};
+var imgurl = chrome.extension.getURL('btn_skip.png');
+console.log(imgurl);
+//gsButton.style.setAttribute("background", imgurl);
+var image = document.createElement("img");
+image.src=imgurl;
 
 var playbackControl=document.getElementById("playbackControl");
 var buttondiv = null;
@@ -20,6 +29,7 @@ for (var i = 0; i < playbackControl.childNodes.length; i++) {
 }
 if(buttondiv!=null){
 buttondiv.appendChild(gsButton);
+buttondiv.appendChild(image);
 }
 
 function addSong(){
