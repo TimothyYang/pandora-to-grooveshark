@@ -151,24 +151,11 @@ function addSong(){
 	console.log("password="+password);
 	message["method"] = "startSession";
 	console.log("method="+message["method"]);
-	
-	/*console.log("hashing sig...");
-	hash = HmacMD5(message, secret);
-	console.log("hash="+hash);
-	sig = hash.toString(CryptoJS.enc.Base64);
+
+	sig = CryptoJS.HmacMD5("{'method':'addUserFavoriteSong','parameters':{'songID':30547543},'header':{'wsKey':'key','sessionID':'df8fec35811a6b240808563d9f72fa2'}}", "secret");
+	//sig = CryptoJS.HmacMD5(message, secret);
 	console.log("hash complete! sig="+sig);
-	var sessionID = postURL(sig);
-	console.log("sessionID="+sessionID);*/
-
-	//sig = CryptoJS.MD5("{\"method\":\'addUserFavoriteSong\",\'parameters\":{\"songID\":30547543},\"header\":{\"wsKey\":\'key\",\"sessionID\":\'df8fec35811a6b240808563d9f72fa2\'}}", "secret");
-
-	sig = CryptoJS.HmacMD5('{"method":"getSongSearchResults","header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":"2","offset":""}}', "399dec7ab7ff40d5be476253130ad75e");
-
-	//sig = CryptoJS.MD5('{"method":"addUserFavoriteSong","parameters":{"songID":30547543},"header":{"wsKey":"key","sessionID":"df8fec35811a6b240808563d9f72fa2"}}',"secret");//message, secret);
-	//console.log("hash="+hash);
-	//sig = hash.toString(CryptoJS.enc.Base64);
-	console.log("hash complete! sig="+sig);
-
+	postURL(sig);
 	clearMessage();
 
 	// Authenticate (login) user.
