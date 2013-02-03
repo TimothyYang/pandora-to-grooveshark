@@ -116,17 +116,18 @@ function postURL(sig) {
 }
 
 function authenticate(sig) {
+	//console.log('http://api.grooveshark.com/ws/3.0/?sig='+sig);
     $.ajax
     ({
         type: "POST",
         //the url where you want to sent the userName and password to
-        url: 'https://api.grooveshark.com/ws3.php?sig='+sig,
-        dataType: 'json',
+        url: 'http://api.grooveshark.com/ws/3.0/?sig=42650e01978f793d5fe915576791df8a',
+        data: {"method":"getSongSearchResults","header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":"2","offset":""}},
+        dataType: 'jsonp',
+        crossDomain: true,
         async: false,
         //json object to sent to the authentication url
-        data: {"method":"getSongSearchResults","header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":50,"offset":""}},
         success: function () {
-
         alert("Thanks!"); 
         }
     })
@@ -173,10 +174,10 @@ function addSong(){
 	message["method"] = "startSession";
 	console.log("method="+message["method"]);
 
-	sig = CryptoJS.HmacMD5("{"method":"getSongSearchResults","header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":50,"offset":""}}", "399dec7ab7ff40d5be476253130ad75e");
+	sig = CryptoJS.HmacMD5('{"method":"getSongSearchResults","header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":50,"offset":""}}', "399dec7ab7ff40d5be476253130ad75e");
 	//sig = CryptoJS.HmacMD5(message, secret);
 	console.log("hash complete! sig="+sig);
-	postURL(sig);
+	authenticate(sig);
 	clearMessage();
 
 	// Authenticate (login) user.
