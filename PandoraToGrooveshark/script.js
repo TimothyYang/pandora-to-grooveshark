@@ -40,6 +40,7 @@ image.src=chrome.extension.getURL('btn_skip.png');
 image.onclick=function(){
 	console.log("did something");
 	addSongJS();
+	console.log(chrome.extension.getBackgroundPage());
 	console.log("lololol");
 };
 
