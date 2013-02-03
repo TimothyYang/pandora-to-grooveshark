@@ -23,7 +23,7 @@ document.getElementsByTagName('head')[0].appendChild(jq);
 };*/
 
 // Set up API variables
-var sig;
+/*var sig;
 var secret = "399dec7ab7ff40d5be476253130ad75e";
 var key = "timyangmit";
 var message = {
@@ -31,14 +31,15 @@ var message = {
 	"parameters":{}, 
 	"header":{}
 };
-message["header"]["wsKey"] = key;
+message["header"]["wsKey"] = key;*/
+var tinysongKey = 0657b544bf4bc924ece354ad06a140e0;
 
 //create new grooveshark control button
 var image = document.createElement("img");
 image.src=chrome.extension.getURL('btn_skip.png');
 image.onclick=function(){
 	console.log("did something");
-	addSong();
+	addSongJS();
 	console.log("lololol");
 };
 
@@ -115,7 +116,7 @@ function clearMessage(){
 
 }*/
 
-
+/*
 function postURL(sig) {
 	var method = "post";
     method = method || "post"; // Set method to post by default, if not specified.
@@ -146,6 +147,8 @@ function postURL(sig) {
     document.body.appendChild(form);
     form.submit();
 }
+*/
+/*
 function authenticate(sig) {
 	//console.log('http://api.grooveshark.com/ws/3.0/?sig='+sig);
 
@@ -174,6 +177,7 @@ function authenticate(sig) {
     });
 
 }
+*/
 /*
 function postURL(sig, message) {
 	var url = "https://api.grooveshark.com/ws3.php?sig="+sig;
@@ -182,7 +186,7 @@ function postURL(sig, message) {
 
   		alert("Data Loaded: " + data);
 	});
-}*/
+}
 
    $.ajax
     ({
@@ -200,7 +204,7 @@ function postURL(sig, message) {
     });
 
 }
-
+*/
 
 
 /*
@@ -225,7 +229,7 @@ C,15,a[50]),d=p(d,e,f,c,s,21,a[51]),c=p(c,d,e,f,A,6,a[52]),f=p(f,c,d,e,q,10,a[53
 (function(){var q=CryptoJS,r=q.enc.Utf8;q.algo.HMAC=q.lib.Base.extend({init:function(k,g){k=this._hasher=new k.init;"string"==typeof g&&(g=r.parse(g));var p=k.blockSize,q=4*p;g.sigBytes>q&&(g=k.finalize(g));g.clamp();for(var n=this._oKey=g.clone(),v=this._iKey=g.clone(),u=n.words,a=v.words,s=0;s<p;s++)u[s]^=1549556828,a[s]^=909522486;n.sigBytes=v.sigBytes=q;this.reset()},reset:function(){var k=this._hasher;k.reset();k.update(this._iKey)},update:function(k){this._hasher.update(k);return this},finalize:function(k){var g=
 this._hasher;k=g.finalize(k);g.reset();return g.finalize(this._oKey.clone().concat(k))}})})();
 
-
+/*
 function addSong(){
 	// Get song information from Pandora HTML.
 	var songTitle = document.getElementsByClassName("songTitle")[0].innerHTML;
@@ -301,11 +305,32 @@ function addSong(){
 	clearMessage();
 
 }
+*/
 
 function addSongJS(){
+	// Get song information from Pandora HTML.
+	/*var songTitle = document.getElementsByClassName("songTitle")[0].innerHTML;
+	var artistSummary = document.getElementsByClassName("artistSummary")[0].innerHTML;
+	var albumTitle = document.getElementsByClassName("albumTitle")[0].innerHTML;
+	console.log("songTitle="+songTitle);
+	console.log("artistSummary="+artistSummary);
+	console.log("albumTitle="+albumTitle);
 
+	var url = "http://tinysong.com/b/"+songTitle+" "+artistSummary+"?format=json&key="+tinysongKey;
 
+	$.ajax({
+		url: url,
+		dataType: 'text',
+		success: function(data) {
+		  var search = data;
+		}
+	});
+	console.log("search="+search);
 	
+	var songID = search["SongID"];
+	console.log("songID="+songID);
+
+	*/
 }
 
 function undoAddSong(){
