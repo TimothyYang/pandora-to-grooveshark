@@ -117,21 +117,23 @@ function postURL(sig) {
 
 function authenticate(sig) {
 	//console.log('http://api.grooveshark.com/ws/3.0/?sig='+sig);
-    $.ajax
+   $.ajax
     ({
-        type: "POST",
+        type: "GET",
         //the url where you want to sent the userName and password to
-        url: 'http://api.grooveshark.com/ws/3.0/?sig=42650e01978f793d5fe915576791df8a',
-        data: {"method":"getSongSearchResults","header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":"2","offset":""}},
+        url: 'http://api.grooveshark.com/ws/3.0/?sig=8c2485fcc0516ed410332443ca27ad18',
+        data: '{"method":"getSongsInfo","header":{"wsKey":"timyangmit"},"parameters":{"songIDs":"200"}}',
         dataType: 'jsonp',
         crossDomain: true,
-        async: false,
+        async: true,
         //json object to sent to the authentication url
         success: function () {
         alert("Thanks!"); 
         }
-    })
+    });
+
 }
+
 
 
 /*
