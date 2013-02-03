@@ -24,7 +24,7 @@ document.getElementsByTagName('head')[0].appendChild(jq);
 
 // Set up API variables
 var sig;
-var secret = "secret";
+var secret = "399dec7ab7ff40d5be476253130ad75e";
 var key = "timyangmit";
 var message = {
 	"method":[], 
@@ -92,7 +92,7 @@ function clearMessage(){
 // Submit POST request to Grooveshark API using sig.
 function postURL(sig) {
 	console.log("starting post...");
-	var path = "http://api.grooveshark.com/ws3.php?sig=";
+	var path = "https://api.grooveshark.com/ws3.php?sig=";
 	path = path+sig;
 	console.log("path="+path);
     var form = document.createElement("form");
@@ -224,7 +224,7 @@ function addSong(){
 	console.log("sessionID="+sessionID);*/
 
 	//sig = CryptoJS.MD5("{\"method\":\'addUserFavoriteSong\",\'parameters\":{\"songID\":30547543},\"header\":{\"wsKey\":\'key\",\"sessionID\":\'df8fec35811a6b240808563d9f72fa2\'}}", "secret");
-	sig = CryptoJS.MD5('{"method":"getSongSearchResults","header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":"2","offset":""}}', "secret");
+	sig = CryptoJS.HmacMD5('{"method":"getSongSearchResults","header":{"wsKey":"timyangmit"},"parameters":{"query":"we the kings","country":"1","limit":"2","offset":""}}', "secret");
 
 	//sig = CryptoJS.MD5('{"method":"addUserFavoriteSong","parameters":{"songID":30547543},"header":{"wsKey":"key","sessionID":"df8fec35811a6b240808563d9f72fa2"}}',"secret");//message, secret);
 	//console.log("hash="+hash);
