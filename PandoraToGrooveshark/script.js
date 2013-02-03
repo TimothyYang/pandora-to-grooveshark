@@ -38,7 +38,7 @@ var image = document.createElement("img");
 image.src=chrome.extension.getURL('btn_skip.png');
 image.onclick=function(){
 	console.log("did something");
-	addSong();
+	console.log(chrome.extension.getBackgroundPage());
 	console.log("lololol");
 };
 

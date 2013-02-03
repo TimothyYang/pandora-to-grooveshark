@@ -14,7 +14,9 @@
     }],
     "web_accessible_resources": [
     "btn_skip.png", "btn_skip_hover.png", "btn_skip_press.png"],
+    "background": {
+    "page": "background.html"
+    },
     "permissions": [
-    "tabs"
-    ]
+    "tabs"]
 }
