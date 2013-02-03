@@ -1,5 +1,3 @@
-console.log("...");
-
 
 
 function addSong(){
